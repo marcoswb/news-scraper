@@ -26,4 +26,15 @@ class BBC:
             if not url.startswith(self.__base_url):
                 continue
 
+            article_page = BaseScraper(url)
+            article_page.load_page()
+
+            div_title = article_page.get_itens('[data-component="headline-block"]')
+            if div_title:
+                title = div_title[0].get_text(strip=True)
+            else:
+                continue
+
+            print(title)
             print(url)
+            print('\n')
