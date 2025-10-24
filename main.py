@@ -1,17 +1,16 @@
 from src.scrapers.BBC import BBC
+from src.controllers.email_sender import Emailsender
 
 class Main:
 
     def __init__(self):
-        pass
+        self.__email_sender = Emailsender()
 
-    @staticmethod
-    def start():
+    def start(self):
         bbc_scraper = BBC()
         articles = bbc_scraper.extract()
 
-        for article in articles:
-            print(article)
+        self.__email_sender.send_email('BCC', articles)
 
 
 if __name__ == '__main__':
