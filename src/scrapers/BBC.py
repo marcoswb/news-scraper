@@ -1,4 +1,5 @@
 from src.scrapers.base import BaseScraper
+from src.models.Article import Article
 
 class BBC:
 
@@ -8,6 +9,7 @@ class BBC:
     def extract(self):
         main_page = BaseScraper(self.__base_url)
         main_page.load_page()
+        articles = []
 
         for item in main_page.get_itens('a.sc-8a623a54-0'):
             link = str(item['href'])
@@ -26,15 +28,24 @@ class BBC:
             if not url.startswith(self.__base_url):
                 continue
 
+            article = Article()
+            article.set_link(url)
+
             article_page = BaseScraper(url)
             article_page.load_page()
 
             div_title = article_page.get_itens('[data-component="headline-block"]')
             if div_title:
-                title = div_title[0].get_text(strip=True)
+                article.set_title(div_title[0].get_text(strip=True))
             else:
                 continue
 
-            print(title)
-            print(url)
-            print('\n')
+            divs_text = article_page.get_itens('[data-component="text-block"] p')
+            for paragraph in divs_text:
+                article.add_text(paragraph.get_text())
+
+            articles.append(article)
+            if len(articles) == 5:
+                break
+
+        return articles

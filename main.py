@@ -8,7 +8,10 @@ class Main:
     @staticmethod
     def start():
         bbc_scraper = BBC()
-        bbc_scraper.extract()
+        articles = bbc_scraper.extract()
+
+        for article in articles:
+            print(article)
 
 
 if __name__ == '__main__':
