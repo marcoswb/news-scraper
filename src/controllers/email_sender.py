@@ -12,6 +12,9 @@ class Emailsender:
         self.__receiver = get_env('RECEIVER')
 
     def send_email(self, portal_name, articles:list):
+        if not articles:
+            return
+
         html = f'<h2>{portal_name} - Daily English News</h2>'
         for article in articles:
             text = ''
