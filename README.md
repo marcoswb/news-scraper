@@ -4,18 +4,18 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)  
 
 
-Um scraper de notícias em inglês que envia diariamente resumos de portais de qualidade diretamente para o seu e-mail. Ideal para praticar leitura, vocabulário e acompanhar atualidades sem distrações.
+Um scraper de notícias em inglês que envia diariamente resumos de portais de notícia diretamente para o seu e-mail. Ideal para praticar leitura, vocabulário e acompanhar atualidades sem distrações.
 
 ---
 
 ## 🔍 Visão Geral  
 
-O News Scraper coleta as principais notícias de portais confiáveis (BBC, The Guardian e CBC) e envia resumos completos com título, subtítulos, parágrafos, negritos e falas em itálico diretamente para o seu e-mail.
+O News Scraper coleta as principais notícias de portais confiáveis (BBC, The Guardian e CBC) e envia resumos completos para seu email mantendo os pontos chaves das notícias para uma leitura agradável(título, subtítulos, parágrafos, negritos, itálicos) porém removendo toda a poluição visual que a fonte original possui(anúncios, propagadas, links externos).
 
 O foco é:
-- Facilitar a prática de inglês com textos reais
-- Manter a leitura limpa e organizada
-- Destacar palavras importantes e falas de pessoas
+- Facilitar a prática de inglês com textos reais.
+- Manter a leitura limpa e organizada.
+- Destacar palavras importantes e falas de pessoas.
 
 ---
 
@@ -45,7 +45,9 @@ RECEIVER=<email que irá receber as notícias>
 ```
 
 ### 3. Iniciar script com GitHub Actions
+Esse projeto possui o arquivo `daily.yml` que é responsável por executar o scraper via [Github Actions](https://github.com/features/actions), ele está configurado para ser executado via cron(agendador de tarefas) todos os dias as 12:30(horário de Brasília).
 
+Para que a Action funcione corretamente basta configurar as mesmas variáveis de ambiente descritas no item 2 como [secrets do projeto github](https://docs.github.com/en/actions/concepts/security/secrets), com isso ela já estará agendada para executar todos os dias e você já pode testar também pois esse fluxo permite a execução manual da Action sempre que necessário.
 
 ---
 
