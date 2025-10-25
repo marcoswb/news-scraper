@@ -1,5 +1,6 @@
 from src.controllers.email_sender import Emailsender
 from src.scrapers.BBC import BBC
+from src.scrapers.CBC import CBC
 from src.scrapers.TheGuardian import TheGuardian
 
 class Main:
@@ -15,6 +16,10 @@ class Main:
         the_guardian_scraper = TheGuardian()
         articles = the_guardian_scraper.extract()
         self.__email_sender.send_email('The Guardian', articles)
+
+        cbc_scraper = CBC()
+        articles = cbc_scraper.extract()
+        self.__email_sender.send_email('CBC', articles)
 
 
 if __name__ == '__main__':

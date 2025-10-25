@@ -12,8 +12,9 @@ class BaseScraper:
         return self.__website_link
 
     def load_page(self):
-        html = requests.get(self.get_website_link()).text
-        self.__soup_data = BeautifulSoup(html, 'html.parser')
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(self.get_website_link(), headers=headers)
+        self.__soup_data = BeautifulSoup(response.text, 'html.parser')
 
     def get_itens(self, select_item):
         return self.__soup_data.select(select_item)
