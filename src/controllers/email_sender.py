@@ -23,8 +23,8 @@ class Emailsender:
 
             html += f"""
             <details>
-                <summary><b><a href="{article.get_link()}">{article.get_title()}</a></b></summary>
-                <p>{text}</p>
+                <h2><b><a href="{article.get_link()}">{article.get_title()}</a></b></h2>
+                <summary>{text}</summary>
             </details>
             <hr>
             """
