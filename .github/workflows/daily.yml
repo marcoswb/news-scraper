@@ -21,14 +21,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      
-      - name: Debug env
-        run: echo "${{ secrets.SENDER_EMAIL }}"
 
       - name: Run News Scraper
         env:
-          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
-          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+          SENDER: ${{ secrets.SENDER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          RECEIVER: ${{ secrets.RECEIVER }}
         run: |
           python main.py
