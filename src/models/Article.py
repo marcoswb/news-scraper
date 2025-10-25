@@ -54,4 +54,5 @@ class Article:
         return result
 
     def __str__(self):
-        return f"title: {self.__title}\nlink: {self.__link}\ntext: {'\n'.join(self.__text)}\n"
+        text = '\n'.join(self.__text)
+        return f'title: {self.__title}\nlink: {self.__link}\ntext: {text}\n'
