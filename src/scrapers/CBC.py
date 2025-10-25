@@ -42,12 +42,7 @@ class CBC:
 
             divs_text = article_page.get_itens('.story > p, .story > h2')
             for paragraph in divs_text:
-                text = paragraph.get_text()
-
-                if paragraph.name == 'h2':
-                    text = f'<h3>{text}</h3>'
-
-                article.add_text(text)
+                article.add_text(paragraph)
 
             articles.append(article)
             if len(articles) == 5:

@@ -42,7 +42,7 @@ class BBC:
 
             divs_text = article_page.get_itens('[data-component="text-block"] p')
             for paragraph in divs_text:
-                article.add_text(paragraph.get_text())
+                article.add_text(paragraph)
 
             articles.append(article)
             if len(articles) == 5:
