@@ -44,7 +44,7 @@ class BBC:
             if article.get_title() in self.__articles_titles:
                 continue
 
-            divs_text = article_page.get_itens('[data-component="text-block"] p')
+            divs_text = article_page.get_itens('[data-component="text-block"] p, [data-component="subheadline-block"] h2')
             for paragraph in divs_text:
                 article.add_text(paragraph)
 
