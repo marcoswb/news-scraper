@@ -52,6 +52,7 @@ RECEIVER=<email que irá receber as notícias>
 ## 📊 Exemplos / Resultados  
 
 ### Notícia enviada para o email
+<img width="419" height="702" alt="image" src="https://github.com/user-attachments/assets/e73e4c25-41ae-4889-bdb4-546fa3f01920" />
 
 
 ---
