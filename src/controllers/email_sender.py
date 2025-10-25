@@ -10,6 +10,7 @@ class Emailsender:
         self.__sender = get_env('SENDER')
         self.__password = get_env('PASSWORD')
         self.__receiver = get_env('RECEIVER')
+        print(self.__sender)
 
     def send_email(self, portal_name, articles:list):
         if not articles:
