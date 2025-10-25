@@ -5,6 +5,7 @@ class CBC:
 
     def __init__(self):
         self.__base_url = 'https://www.cbc.ca'
+        self.__articles_titles = []
 
     def extract(self):
         main_page = BaseScraper(f'{self.__base_url}/news')
@@ -40,11 +41,15 @@ class CBC:
             else:
                 continue
 
+            if article.get_title() in self.__articles_titles:
+                continue
+
             divs_text = article_page.get_itens('.story > p, .story > h2')
             for paragraph in divs_text:
                 article.add_text(paragraph)
 
             articles.append(article)
+            self.__articles_titles.append(article.get_title())
             if len(articles) == 5:
                 break
 

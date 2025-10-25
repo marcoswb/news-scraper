@@ -5,6 +5,7 @@ class BBC:
 
     def __init__(self):
         self.__base_url = 'https://www.bbc.com'
+        self.__articles_titles = []
 
     def extract(self):
         main_page = BaseScraper(self.__base_url)
@@ -40,11 +41,15 @@ class BBC:
             else:
                 continue
 
+            if article.get_title() in self.__articles_titles:
+                continue
+
             divs_text = article_page.get_itens('[data-component="text-block"] p')
             for paragraph in divs_text:
                 article.add_text(paragraph)
 
             articles.append(article)
+            self.__articles_titles.append(article.get_title())
             if len(articles) == 5:
                 break
 
