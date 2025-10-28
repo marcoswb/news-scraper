@@ -45,6 +45,9 @@ class CBC:
                 continue
 
             divs_text = article_page.get_itens('.story > p, .story > h2')
+            if not divs_text:
+                continue
+
             for paragraph in divs_text:
                 article.add_text(paragraph)
 

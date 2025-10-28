@@ -45,6 +45,9 @@ class TheGuardian:
                 continue
 
             divs_text = article_page.get_itens('p.dcr-130mj7b')
+            if not divs_text:
+                continue
+
             for paragraph in divs_text:
                 article.add_text(paragraph)
 
