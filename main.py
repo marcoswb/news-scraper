@@ -11,7 +11,7 @@ class Main:
     def start(self):
         bbc_scraper = BBC()
         articles = bbc_scraper.extract()
-        self.__email_sender.send_email('BCC', articles)
+        self.__email_sender.send_email('BBC', articles)
 
         the_guardian_scraper = TheGuardian()
         articles = the_guardian_scraper.extract()
