@@ -54,7 +54,8 @@ Para que a Action funcione corretamente basta configurar as mesmas variáveis de
 ## 📊 Exemplos / Resultados  
 
 ### Notícia enviada para o email
-<img width="419" height="702" alt="image" src="https://github.com/user-attachments/assets/e73e4c25-41ae-4889-bdb4-546fa3f01920" />
+<img width="686" height="669" alt="image" src="https://github.com/user-attachments/assets/01c18862-c5ec-461e-b55f-5d9266c7235e" />
+
 
 
 ---
