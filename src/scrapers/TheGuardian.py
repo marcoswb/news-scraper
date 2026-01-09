@@ -35,7 +35,7 @@ class TheGuardian:
             article_page = BaseScraper(url)
             article_page.load_page()
 
-            div_title = article_page.get_itens('h1.dcr-uc7bn6')
+            div_title = article_page.get_itens('h1.dcr-1k1a1x')
             if div_title:
                 article.set_title(div_title[0].get_text(strip=True))
             else:
