@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)  
 
 
-Um scraper de notícias em inglês que envia diariamente resumos de portais de notícia diretamente para o seu e-mail. Ideal para praticar leitura, vocabulário e acompanhar atualidades sem distrações.
+Um scraper de notícias em inglês que envia diariamente resumos de portais de notícia diretamente para o seu e-mail, ideal para praticar leitura, vocabulário e acompanhar atualidades sem distrações.
 
 ---
 
