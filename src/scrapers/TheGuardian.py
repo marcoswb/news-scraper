@@ -12,7 +12,7 @@ class TheGuardian:
         main_page.load_page()
         articles = []
 
-        for item in main_page.get_itens('a.dcr-qj3bsx'):
+        for item in main_page.get_itens('a.dcr-icugz0'):
             link = str(item['href'])
             if main_page.is_link(link):
                 if link.startswith(self.__base_url):
