@@ -12,7 +12,7 @@ class BBC:
         main_page.load_page()
         articles = []
 
-        for item in main_page.get_itens('a.sc-8a623a54-0'):
+        for item in main_page.get_itens('a.Anchor-styles__AnchorStyled-sc-651d33db-0'):
             link = str(item['href'])
             if main_page.is_link(link):
                 if link.startswith(self.__base_url):
