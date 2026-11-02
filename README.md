@@ -1,67 +1,113 @@
-# *News Scraper* — Notícias frescas. Leitura limpa. Inglês melhor!
+# News Scraper
 
-[![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)   
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)  
+[![Python](https://img.shields.io/badge/python-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
+Scrapes top stories from major English-language news sites and delivers them as clean HTML emails. Built for **English-practice reading**: real news, cleaner layout, less distraction from ads and page chrome.
 
-Um scraper de notícias em inglês que envia diariamente resumos de portais de notícia diretamente para o seu e-mail, ideal para praticar leitura, vocabulário e acompanhar atualidades sem distrações.
+## Features
 
----
+- Scrapes up to **5 articles** each from [BBC](https://www.bbc.com), [The Guardian](https://www.theguardian.com) (international / world), and [CBC](https://www.cbc.ca/news)
+- Extracts title, link, body paragraphs, and subheadings
+- Keeps limited inline formatting (`b`, `strong`, `i`, `em`, `blockquote`) and italicizes quoted speech
+- Strips unrelated markup (links, images, and other tags are not preserved in the email body)
+- Sends one HTML email per source via **Gmail SMTP**
+- Optional daily run through **GitHub Actions** (scheduled and manual)
 
-## 🔍 Visão Geral  
+## Technologies
 
-O News Scraper coleta as principais notícias de portais confiáveis (BBC, The Guardian e CBC) e envia resumos completos para seu email mantendo os pontos chaves das notícias para uma leitura agradável(título, subtítulos, parágrafos, negritos, itálicos) porém removendo toda a poluição visual que a fonte original possui(anúncios, propagadas, links externos).
+| Area | Stack |
+|------|--------|
+| Language | Python |
+| HTTP / HTML | `requests`, Beautiful Soup (`bs4`) |
+| Config | `python-dotenv` |
+| Email | `smtplib` + Gmail (`smtp.gmail.com:465`) |
+| Automation | GitHub Actions |
 
-O foco é:
-- Facilitar a prática de inglês com textos reais.
-- Manter a leitura limpa e organizada.
-- Destacar palavras importantes e falas de pessoas.
+## Project structure
 
----
+```
+.
+├── main.py                          # Entry point: scrape each source and send emails
+├── requirements.txt
+├── .github/workflows/
+│   └── daily-news-email.yml         # Scheduled + manual workflow
+└── src/
+    ├── controllers/
+    │   ├── email_sender.py          # Builds HTML and sends via Gmail
+    │   └── enviroments.py           # Loads env vars (including from .env)
+    ├── models/
+    │   └── Article.py               # Article model and text formatting
+    └── scrapers/
+        ├── base.py                  # Shared page loading / CSS selection
+        ├── BBC.py
+        ├── TheGuardian.py
+        └── CBC.py
+```
 
-## ✅ Funcionalidades  
+## Prerequisites
 
-- 📥 **Scraping** de notícias dos portais [BBC](https://www.bbc.com), [The Guardian](https://www.theguardian.com) e [CBC](https://www.cbc.ca);
-- 🧹 **Transformação e organização** de dados, capturando e destacando títulos, parágrafos, negritos/falas/etc...   
-- 💾 **Limpeza** de links, imagens e formatações desnecessárias; 
-- ⏰ Envio diário de **e-mails em HTML** com as notícias completas;
+- Python 3 (current releases work; CI runs on 3.11)
+- A Gmail account with an [App Password](https://support.google.com/accounts/answer/185833) for SMTP
+- Network access to the news sites and `smtp.gmail.com`
 
----
+## Installation
 
-## 🛠 Como usar / Setup  
-
-### 1. Clone o repositório  
 ```bash
 git clone https://github.com/marcoswb/news-scraper.git
 cd news-scraper
+pip install -r requirements.txt
 ```
 
-### 2. Configure variáveis de ambiente  
-Crie um arquivo `.env` na raiz do projeto com as credenciais para envio de emails(para a variável `PASSWORD`(senha de aplicativo do Gmail) a geração da mesma deve ser feita seguindo [esse passo a passo de configuração no Gmail](https://support.google.com/accounts/answer/185833?hl=pt-BR)):  
+## Configuration
+
+Create a `.env` file in the project root (the file is gitignored):
+
 ```env
-SENDER=<email que irá enviar as notícias>
-PASSWORD=<senha(de aplicativo) do email que irá enviar as notícias>
-RECEIVER=<email que irá receber as notícias>
+SENDER=<Gmail address that sends the digests>
+PASSWORD=<Gmail App Password for that account>
+RECEIVER=<email address that receives the digests>
 ```
 
-### 3. Iniciar script com GitHub Actions
-Esse projeto possui o arquivo `daily.yml` que é responsável por executar o scraper via [Github Actions](https://github.com/features/actions), ele está configurado para ser executado via cron(agendador de tarefas) todos os dias as 12:30(horário de Brasília).
+| Variable | Description |
+|----------|-------------|
+| `SENDER` | SMTP login / From address |
+| `PASSWORD` | Gmail App Password (not the normal account password) |
+| `RECEIVER` | To address for the digests |
 
-Para que a Action funcione corretamente basta configurar as mesmas variáveis de ambiente descritas no item 2 como [secrets do projeto github](https://docs.github.com/en/actions/concepts/security/secrets), com isso ela já estará agendada para executar todos os dias e você já pode testar também pois esse fluxo permite a execução manual da Action sempre que necessário.
+The same three values are required as GitHub Actions secrets (`SENDER`, `PASSWORD`, `RECEIVER`) if you use the workflow.
 
----
+## How to run
 
-## 📊 Exemplos / Resultados  
+From the project root:
 
-### Notícia enviada para o email
-<img width="686" height="669" alt="image" src="https://github.com/user-attachments/assets/01c18862-c5ec-461e-b55f-5d9266c7235e" />
+```bash
+python main.py
+```
 
+This scrapes BBC, The Guardian, and CBC in sequence and sends one email per source that returned articles. Subject line format: `{Portal} - Daily English News`.
 
+### GitHub Actions
 
----
+Workflow: [`.github/workflows/daily-news-email.yml`](.github/workflows/daily-news-email.yml)
 
-## 📝 Licença  
+- **Schedule:** `30 14 * * *` (14:30 UTC every day)
+- **Manual:** `workflow_dispatch` (run from the Actions tab)
+- Installs dependencies and runs `python main.py` with the secrets above
 
-Este projeto está licenciado sob a [MIT License](LICENSE).  
+## Usage notes
 
----
+- Each scraper deduplicates by article title within that run and stops after 5 articles.
+- The Guardian scraper starts from the international edition and only keeps URLs under `/world/`.
+- BBC uses the homepage; CBC uses `/news`.
+- Empty scrape results skip sending for that source (no empty email).
+
+### Email example
+
+Emails use collapsible HTML (`<details>`) with the article title linking to the original page and cleaned body text underneath.
+
+<img width="686" height="669" alt="Example news email" src="https://github.com/user-attachments/assets/01c18862-c5ec-461e-b55f-5d9266c7235e" />
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
